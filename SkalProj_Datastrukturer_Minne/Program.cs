@@ -123,15 +123,15 @@ namespace SkalProj_Datastrukturer_Minne
             2. När ökar listans kapacitet?
                 - Kapacitet är det "0" i början
                 - man lägger till en element i listan
-                - kapacitet ökar till 4 (2^2)
+                - kapacitet ökar till 4 (2^2), om ingen initial kapacitet angiven
                 - när man lägger 4 stycken i listan då är det full kapacitetet
                 - när man lägger 5:te element i listan då ökar kapacitetet till 8 (2^3)	
                 - när man lägger till 9:de stycken i listan då ökar kapacitet
-                    till 16 (2^4) och den ökar enligt 2^x
+                    till 16 (2^4) och den fördubblas eller 2^x när blir full kapacitetet
             3. Med hur mycket ökar kapaciteten?
                 - 2^x
             4. Varför ökar inte listans kapacitet i samma takt som element läggs till? 
-
+                - för att undvika att resize listan varje gång
             5. Minskar kapaciteten när element tas bort ur listan? 
                 - Nej.
             6. När är det då fördelaktigt att använda en egendefinierad array istället för en lista? 
