@@ -4,22 +4,18 @@ namespace SkalProj_Datastrukturer_Minne
 {
     class Program
     {
-        /// <summary>
-        /// The main method, vill handle the menues for the program
-        /// </summary>
-        /// <param name="args"></param>
         static void Main()
         {
 
             while (true)
             {
-                Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4, 0) of your choice"
+                Console.WriteLine("\nPlease navigate through the menu by inputting the number \n(1, 2, 3 ,4, 0) of your choice\n"
                     + "\n1. Examine a List"
                     + "\n2. Examine a Queue"
                     + "\n3. Examine a Stack"
                     + "\n4. CheckParenthesis"
                     + "\n0. Exit the application");
-                char input = ' '; //Creates the character input to be used with the switch-case below.
+                char input = ' ';
                 try
                 {
                     input = Console.ReadLine()![0]; //Tries to set input to the first char in an input line
@@ -43,46 +39,108 @@ namespace SkalProj_Datastrukturer_Minne
                     case '4':
                         CheckParanthesis();
                         break;
-                    /*
-                     * Extend the menu to include the recursive 
-                     * and iterative exercises.
-                     */
+                    case '5':
+                        CheckRecursive();
+                        break;
+                    case '6':
+                        CheckInterative();
+                        break;
+
                     case '0':
                         Environment.Exit(0);
                         break;
                     default:
-                        Console.WriteLine("Please enter some valid input (0, 1, 2, 3, 4)");
+                        Console.WriteLine("\nPlease enter some valid input (0, 1, 2, 3, 4)");
                         break;
                 }
             }
         }
 
-        /// <summary>
-        /// Examines the datastructure List
-        /// </summary>
+        // Examines the datastructure List
         static void ExamineList()
         {
+            List<string> list = new List<string>();
+
+            while (true)
+            {
+                // string uInput = GetUserInput("\nEnter + to add, - to remove, or q to quit:\n");
+                string uInput = " ";
+
+                while (true)
+                {
+                    Console.WriteLine("\nEnter + to add, - to remove, or q to quit");
+                    if (list.Capacity == 0){
+                        Console.WriteLine("ex: +Adam or -Adam");
+                    }
+
+                    if (list.Count == list.Capacity)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine($"Count: {list.Count}, Capacity: {list.Capacity}");
+                        Console.ResetColor();
+                        Console.WriteLine(" ");
+                    }
+
+
+                    string userInput = Console.ReadLine() ?? "";
+                    if (userInput.Length > 1 || userInput == "q")
+                    {
+                        uInput = userInput;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input.");
+                    }
+
+
+
+                    switch (uInput[0])
+                    {
+                        case '+':
+                            list.Add(uInput.Substring(1));
+                            break;
+                        case '-':
+                            if (list.Remove(uInput.Substring(1)))
+                            {
+                                break;
+                            }
+                            Console.WriteLine("Element not found.");
+                            break;
+                        case 'q':
+                            return;
+                        default:
+                            Console.WriteLine("Invalid operation.");
+                            break;
+                    }
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"Count: {list.Count}, Capacity: {list.Capacity}");
+                    Console.ResetColor();
+                }
+            }
             /*
-             * Loop this method untill the user inputs something to exit to main menue.
-             * Create a switch statement with cases '+' and '-'
-             * '+': Add the rest of the input to the list (The user could write +Adam and "Adam" would be added to the list)
-             * '-': Remove the rest of the input from the list (The user could write -Adam and "Adam" would be removed from the list)
-             * In both cases, look at the count and capacity of the list
-             * As a default case, tell them to use only + or -
-             * Below you can see some inspirational code to begin working.
+            1. Skriv klart implementationen av ExamineList-metoden så att undersökningen blir genomförbar. 
+            2. När ökar listans kapacitet?
+                - Kapacitet är det "0" i början
+                - man lägger till en element i listan
+                - kapacitet ökar till 4 (2^2)
+                - när man lägger 4 stycken i listan då är det full kapacitetet
+                - när man lägger 5:te element i listan då ökar kapacitetet till 8 (2^3)	
+                - när man lägger till 9:de stycken i listan då ökar kapacitet
+                    till 16 (2^4) och den ökar enligt 2^x
+            3. Med hur mycket ökar kapaciteten?
+                - 2^x
+            4. Varför ökar inte listans kapacitet i samma takt som element läggs till? 
+
+            5. Minskar kapaciteten när element tas bort ur listan? 
+                - Nej.
+            6. När är det då fördelaktigt att använda en egendefinierad array istället för en lista? 
+                - när man vet array length från början
             */
-
-            //List<string> theList = new List<string>();
-            //string input = Console.ReadLine();
-            //char nav = input[0];
-            //string value = input.substring(1);
-
-            //switch(nav){...}
         }
 
-        /// <summary>
-        /// Examines the datastructure Queue
-        /// </summary>
+
+        // Examines the datastructure Queue
         static void ExamineQueue()
         {
             /*
@@ -92,9 +150,7 @@ namespace SkalProj_Datastrukturer_Minne
             */
         }
 
-        /// <summary>
-        /// Examines the datastructure Stack
-        /// </summary>
+        // Examines the datastructure Stack
         static void ExamineStack()
         {
             /*
@@ -111,6 +167,17 @@ namespace SkalProj_Datastrukturer_Minne
              * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
+
+        }
+
+
+        static void CheckRecursive()
+        {
+
+        }
+
+        static void CheckInterative()
+        {
 
         }
 
