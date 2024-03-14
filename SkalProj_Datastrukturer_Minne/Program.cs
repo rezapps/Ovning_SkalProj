@@ -56,6 +56,7 @@ namespace SkalProj_Datastrukturer_Minne
             }
         }
 
+
         // Examines the datastructure List
         static void ExamineList()
         {
@@ -75,9 +76,7 @@ namespace SkalProj_Datastrukturer_Minne
 
                     if (list.Count == list.Capacity)
                     {
-                        Console.ForegroundColor = ConsoleColor.Cyan;
-                        Console.WriteLine($"Count: {list.Count}, Capacity: {list.Capacity}");
-                        Console.ResetColor();
+                        printColored($"Count: {list.Count}, Capacity: {list.Capacity}", "Cyan");
                         Console.WriteLine(" ");
                     }
 
@@ -113,9 +112,7 @@ namespace SkalProj_Datastrukturer_Minne
                             break;
                     }
 
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"Count: {list.Count}, Capacity: {list.Capacity}");
-                    Console.ResetColor();
+                    printColored($"Count: {list.Count}, Capacity: {list.Capacity}", "Green");
                 }
             }
             /*
@@ -148,6 +145,71 @@ namespace SkalProj_Datastrukturer_Minne
              * Create a switch with cases to enqueue items or dequeue items
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
             */
+
+            Queue<string> queue = new Queue<string>();
+            Console.WriteLine("ICA opens: queue is empty");
+            
+            queue.Enqueue("Kalle");
+            printColored("Kalle stays in line", "Green");
+
+            queue.Enqueue("Greta");
+            printColored("Greta stays in line", "Green");
+
+            printColored($"{queue.Dequeue()} leaves the line", "Cyan");
+
+            queue.Enqueue("Stina");
+            printColored("Stina stays in line", "Green");
+
+            printColored($"{queue.Dequeue()} leaves the line", "Cyan");
+
+            queue.Enqueue("Olle");
+            printColored("Olle stays in line", "Green");
+
+            queue.Enqueue("Maria");
+            printColored("Maria stays in line", "Green");
+
+            printColored($"{queue.Dequeue()} leaves the line", "Cyan");
+
+            printColored($"{queue.Dequeue()} leaves the line", "Cyan");
+            printColored($"{queue.Dequeue()} leaves the line", "Cyan");
+
+            Console.WriteLine("queue is empty");
+
+            /*
+            source:
+            https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.queue-1?view=net-8.0#methods
+
+            Enqueue:
+            Adds an object to the end of the Queue<T>.
+
+            Dequeue:
+            Removes and returns the object at the beginning of the Queue<T>.
+
+                +-------------------+
+                |  Customer Arrives | 
+                +-------------------+
+                         |
+                         |
+                         V
+           +--------------+-------------+
+           | Is cashier serving anyone? | <--------
+           +--------------+-------------+         |
+             (NO)                (YES)            |
+              |                    |              |
+              |                    |              | 
+              V                    V              |
+        +-----------+         +--------------+    |
+        |  Serve    |         | Wait in line |    |
+        |  Dequeue  |         | Enqueue      |    |
+        +-----------+         +--------------+    |                
+             |                       |            |
+             |                       |            |
+             V                       |------------|
+    +-------------------+
+    |  Customer Leaves  |
+    +-------------------+
+        */
+
         }
 
         // Examines the datastructure Stack
@@ -158,6 +220,7 @@ namespace SkalProj_Datastrukturer_Minne
              * Create a switch with cases to push or pop items
              * Make sure to look at the stack after pushing and and poping to see how it behaves
             */
+
         }
 
         static void CheckParanthesis()
@@ -179,6 +242,25 @@ namespace SkalProj_Datastrukturer_Minne
         static void CheckInterative()
         {
 
+        }
+
+
+
+
+        static void printColored(string msg, string clr)
+        {
+            switch(clr) {
+                case "Green":
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    break;
+                case "Cyan":
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    break;
+                
+            }
+            
+            Console.WriteLine(msg);
+            Console.ResetColor();
         }
 
     }
