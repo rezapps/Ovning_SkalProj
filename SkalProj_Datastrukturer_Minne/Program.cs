@@ -64,7 +64,6 @@ namespace SkalProj_Datastrukturer_Minne
 
             while (true)
             {
-                // string uInput = GetUserInput("\nEnter + to add, - to remove, or q to quit:\n");
                 string uInput = " ";
 
                 while (true)
@@ -140,40 +139,68 @@ namespace SkalProj_Datastrukturer_Minne
         // Examines the datastructure Queue
         static void ExamineQueue()
         {
-            /*
-             * Loop this method untill the user inputs something to exit to main menue.
-             * Create a switch with cases to enqueue items or dequeue items
-             * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
-            */
-
+            // int counter = 0;
+            List<string> Customers = ["Adam", "Elsa", "Olle", "Greta", "Stina", "Kalle"];
             Queue<string> queue = new Queue<string>();
-            Console.WriteLine("ICA opens: queue is empty");
-            
-            queue.Enqueue("Kalle");
-            printColored("Kalle stays in line", "Green");
+            while (true) {
+                // Console.WriteLine("ICA opens: queue is empty");
+                
 
-            queue.Enqueue("Greta");
-            printColored("Greta stays in line", "Green");
+                if (Customers.Count > 0 && queue.Count == 0)
+                {
+                    Console.WriteLine("\nEnter + to add one to queue, or q to quit\n");
+                }
+                else if (queue.Count > 0 && Customers.Count == 0)
+                {
+                    Console.WriteLine("\nEnter - to remove one, or q to quit\n");
+                }
+                else if (queue.Count == 0 && Customers.Count == 0)
+                {
+                    Console.WriteLine("\nGood Job, All customers served! Enter q to Exit\n");
+                }
+                else
+                {
+                    Console.WriteLine("\nEnter + to add one to queue, - to remove one, or q to quit\n");
+                }
 
-            printColored($"{queue.Dequeue()} leaves the line", "Cyan");
+                string userInput = Console.ReadLine() ?? "";
 
-            queue.Enqueue("Stina");
-            printColored("Stina stays in line", "Green");
+                switch (userInput[0])
+                {
+                    case '+':
+                        if (Customers.Count > 0)
+                        {
+                            queue.Enqueue(Customers[0]);
+                            printColored($"{Customers[0]} is in the line\n", "Green");
+                            Customers.RemoveAt(0);
+                        }
+                        else if ( Customers.Count == 0 && queue.Count == 0)
+                        {
+                            printColored("No customers in line, Good Job!\n", "Red");
+                        }
+                        else if (Customers.Count == 0 && queue.Count > 0)
+                        {
+                            printColored($"There are {queue.Count} customers waiting in line. Please serve them first!\n", "Red");
+                        }
+                        break;
+                    case '-':
+                        if (queue.Count == 0)
+                        {
+                            printColored("Queue is empty\n", "Red");
+                        }
+                        else
+                        {
+                            printColored($"{queue.Dequeue()} leaves the line\n", "Cyan");
+                        }
+                        break;
+                    case 'q':
+                        return;
+                    default:
+                        Console.WriteLine("Invalid operation.");
+                        break;
+                }
 
-            printColored($"{queue.Dequeue()} leaves the line", "Cyan");
-
-            queue.Enqueue("Olle");
-            printColored("Olle stays in line", "Green");
-
-            queue.Enqueue("Maria");
-            printColored("Maria stays in line", "Green");
-
-            printColored($"{queue.Dequeue()} leaves the line", "Cyan");
-
-            printColored($"{queue.Dequeue()} leaves the line", "Cyan");
-            printColored($"{queue.Dequeue()} leaves the line", "Cyan");
-
-            Console.WriteLine("queue is empty");
+            }
 
             /*
             source:
@@ -255,6 +282,9 @@ namespace SkalProj_Datastrukturer_Minne
                     break;
                 case "Cyan":
                     Console.ForegroundColor = ConsoleColor.Cyan;
+                    break;
+                case "Red":
+                    Console.ForegroundColor = ConsoleColor.Red;
                     break;
                 
             }
