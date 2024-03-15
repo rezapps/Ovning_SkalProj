@@ -60,7 +60,7 @@ namespace SkalProj_Datastrukturer_Minne
         // Examines the datastructure List
         static void ExamineList()
         {
-            List<string> list = new List<string>();
+            List<string> list = [];
 
             while (true)
             {
@@ -68,14 +68,14 @@ namespace SkalProj_Datastrukturer_Minne
 
                 while (true)
                 {
-                    Console.WriteLine("\nEnter + to add, - to remove, or q to quit");
+                    Console.WriteLine("\nEnter + to add, - to remove, or q to return to main menu");
                     if (list.Capacity == 0){
                         Console.WriteLine("ex: +Adam or -Adam");
                     }
 
                     if (list.Count == list.Capacity)
                     {
-                        printColored($"Count: {list.Count}, Capacity: {list.Capacity}", "Cyan");
+                        PrintColored($"Count: {list.Count}, Capacity: {list.Capacity}", "Cyan");
                         Console.WriteLine(" ");
                     }
 
@@ -111,7 +111,7 @@ namespace SkalProj_Datastrukturer_Minne
                             break;
                     }
 
-                    printColored($"Count: {list.Count}, Capacity: {list.Capacity}", "Green");
+                    PrintColored($"Count: {list.Count}, Capacity: {list.Capacity}", "Green");
                 }
             }
             /*
@@ -141,26 +141,26 @@ namespace SkalProj_Datastrukturer_Minne
         {
             // int counter = 0;
             List<string> Customers = ["Adam", "Elsa", "Olle", "Greta", "Stina", "Kalle"];
-            Queue<string> queue = new Queue<string>();
+            Queue<string> queue = new();
             while (true) {
                 // Console.WriteLine("ICA opens: queue is empty");
                 
 
                 if (Customers.Count > 0 && queue.Count == 0)
                 {
-                    Console.WriteLine("\nEnter + to add one to queue, or q to quit\n");
+                    Console.WriteLine("\nEnter + to add one to queue, q to return to main menu\n");
                 }
                 else if (queue.Count > 0 && Customers.Count == 0)
                 {
-                    Console.WriteLine("\nEnter - to remove one, or q to quit\n");
+                    Console.WriteLine("\nEnter - to remove one, q to return to main menu\n");
                 }
                 else if (queue.Count == 0 && Customers.Count == 0)
                 {
-                    Console.WriteLine("\nGood Job, All customers served! Enter q to Exit\n");
+                    Console.WriteLine("\nGood Job, All customers served! Enter q to return to main menu\n");
                 }
                 else
                 {
-                    Console.WriteLine("\nEnter + to add one to queue, - to remove one, or q to quit\n");
+                    Console.WriteLine("\nEnter + to add one to queue, - to remove one, or q to return to main menu\n");
                 }
 
                 string userInput = Console.ReadLine() ?? "";
@@ -171,26 +171,26 @@ namespace SkalProj_Datastrukturer_Minne
                         if (Customers.Count > 0)
                         {
                             queue.Enqueue(Customers[0]);
-                            printColored($"{Customers[0]} is in the line\n", "Green");
+                            PrintColored($"{Customers[0]} is in the line\n", "Green");
                             Customers.RemoveAt(0);
                         }
                         else if ( Customers.Count == 0 && queue.Count == 0)
                         {
-                            printColored("No customers in line, Good Job!\n", "Red");
+                            PrintColored("No customers in line, Good Job!\n", "Red");
                         }
                         else if (Customers.Count == 0 && queue.Count > 0)
                         {
-                            printColored($"There are {queue.Count} customers waiting in line. Please serve them first!\n", "Red");
+                            PrintColored($"There are {queue.Count} customers waiting in line. Please serve them first!\n", "Red");
                         }
                         break;
                     case '-':
                         if (queue.Count == 0)
                         {
-                            printColored("Queue is empty\n", "Red");
+                            PrintColored("Queue is empty\n", "Red");
                         }
                         else
                         {
-                            printColored($"{queue.Dequeue()} leaves the line\n", "Cyan");
+                            PrintColored($"{queue.Dequeue()} leaves the line\n", "Cyan");
                         }
                         break;
                     case 'q':
@@ -239,14 +239,55 @@ namespace SkalProj_Datastrukturer_Minne
 
         }
 
+
+
+
+
         // Examines the datastructure Stack
         static void ExamineStack()
         {
-            /*
-             * Loop this method until the user inputs something to exit to main menue.
-             * Create a switch with cases to push or pop items
-             * Make sure to look at the stack after pushing and and poping to see how it behaves
-            */
+            // create a stack to hold characters
+            Stack<char> CharStack = new();
+
+            while (true)
+            {
+                Console.WriteLine("Enter 1 to type a string to see it in reverse, \nenter q to return to main menu");
+                string UserInput = Console.ReadLine() ?? "";
+
+
+                switch(UserInput[0])
+                {
+                    case '1':
+                        PrintColored("Enter a string to see it in reverse: ", "Cyan");
+
+                        string UInput = Console.ReadLine() ?? "";
+
+                        // loop through each character in the string
+                        foreach ( char x in UInput )
+                        {
+                            // push each character onto the stack
+                            CharStack.Push(x);
+                        }
+
+                        // an empty string to hold the reversed string
+                        string output = "";
+
+                        // pop each character off the stack and add it to the output string
+                        while (CharStack.Count > 0)
+                        {
+                            output += CharStack.Pop();
+                        }
+
+                        PrintColored($"{output}\n", "Green");
+
+                        break;
+                    case 'q':
+                        return;
+                    default:
+                        Console.WriteLine("Invalid operation.");
+                        break;
+                }
+            }
 
         }
 
@@ -274,7 +315,7 @@ namespace SkalProj_Datastrukturer_Minne
 
 
 
-        static void printColored(string msg, string clr)
+        static void PrintColored(string msg, string clr)
         {
             switch(clr) {
                 case "Green":
