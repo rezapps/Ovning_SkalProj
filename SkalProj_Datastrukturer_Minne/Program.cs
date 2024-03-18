@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SkalProj_Datastrukturer_Minne
+﻿namespace SkalProj_Datastrukturer_Minne
 {
     class Program
     {
@@ -293,14 +291,120 @@ namespace SkalProj_Datastrukturer_Minne
 
         static void CheckParanthesis()
         {
-            /*
-             * Use this method to check if the paranthesis in a string is Correct or incorrect.
-             * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
-             * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
-             */
+            while (true)
+            {
+                Console.WriteLine("Enter 1 to check if string is enclosed in (){}[] correctly, \nenter q to return to main menu");
+
+                string UserInput = Console.ReadLine() ?? "";
+
+                switch(UserInput[0])
+                {
+                    case '1':
+                        PrintColored("Enter a string to check if it is enclosed in (){}[] correctly: ", "Cyan");
+                        string testString = Console.ReadLine() ?? "";
+                        CheckEnclosing(testString);
+                        break;
+                    case 'q':
+                        return;
+                    default:
+                        break;
+                }
+            }
 
         }
 
+        /*
+            CheckEnclosing method using Stack
+        */
+        private static void CheckEnclosing(String input)
+        {
+            // create a stack to hold opening brackets and pranthesis
+            Stack<char> TestStack = new();
+
+            // list of opening and closing brackets and pranthesis
+            List<char> OpeningList = ['(', '{', '['];
+            List<char> ClosingList = [')', '}', ']'];
+
+            // list of correctly enclosed brackets and pranthesis
+            List<string> PairedList = ["()", "{}", "[]"];
+
+            // loop through each character in the user input
+            foreach (char x in input)
+            {
+                // push only characters matching opening brackets and pranthesis to the stack
+                if (OpeningList.Contains(x))
+                {
+                    TestStack.Push(x);
+                }
+                // If character is a closing bracket or pranthesis
+                else if (ClosingList.Contains(x))
+                {
+
+                    // check if this closing symbol paired with the last characer in
+                    // the stack makes a valid enclosed pair
+                    string test = TestStack.Peek() + "" + x;
+                    if (PairedList.Contains(test))
+                    {
+                        // if yes, print the pair in green to user
+                        PrintColored($"Correct: {test}\n", "Green");
+                        // if yes, pop the last character from the stack
+                        TestStack.Pop();
+                    }
+                    else
+                    {
+                        // if it is not a valid enclosed pair,
+                        // print the pair in red to user
+                        PrintColored($"Wrong: {test}\n", "Red");
+                    }
+                }
+            }
+
+            string result = TestStack.Count == 0 ? "Enclosed Correctly\n" : "Not Enclosed\n";
+            PrintColored(result, TestStack.Count == 0 ? "Green" : "Red");
+        }
+
+
+        /*
+            CheckEnclosing method using only list
+        */
+        // private static string CheckEnclosing(String input)
+        // {
+        //     List<char> TestList = ['(', ')', '{', '}', '[', ']'];
+        //     List<char> SymbolList = [];
+        //     foreach (char x in input)
+        //     {
+        //         if (TestList.Contains(x))
+        //         {
+        //             SymbolList.Add(x);
+        //         }
+        //     }
+        //     string result;
+        //     if (SymbolList.Count % 2 == 0)
+        //     {
+        //         int x = 0;
+        //         do
+        //         {
+        //             string paired = SymbolList[x] + "" + SymbolList[x + 1];
+        //             if (paired == "()" || paired == "[]" || paired == "{}")
+        //             {
+        //                 SymbolList.Remove(SymbolList[x + 1]);
+        //                 SymbolList.Remove(SymbolList[x]);
+        //                 x--;
+        //             }
+        //             else
+        //             {
+        //                 x++;
+        //             }
+
+        //         } while (SymbolList.Count > 0);
+        //         result = "True";
+        //     }
+        //     else
+        //     {
+        //         result = "False";
+        //     }
+        //     return result;
+        // }
 
         static void CheckRecursive()
         {
@@ -317,7 +421,7 @@ namespace SkalProj_Datastrukturer_Minne
 
         static void PrintColored(string msg, string clr)
         {
-            switch(clr) {
+            switch (clr) {
                 case "Green":
                     Console.ForegroundColor = ConsoleColor.Green;
                     break;
